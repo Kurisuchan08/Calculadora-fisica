@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Física</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Calculadora Física</h1>
+            <p>Bienvenido a la herramienta donde encontrarás conversiones físicas, cálculos de movimiento, vectores y animaciones. Aprende para qué sirve cada tema y cómo aplicar los resultados en problemas reales.</p>
+            <div class="hero-links">
+                <a href="#intro">Inicio</a>
+                <a href="#conversiones">Conversiones</a>
+                <a href="#tabla">Tabla</a>
+                <a href="#temperatura">Temperatura</a>
+                <a href="#vectores">Vectores</a>
+                <a href="#movimiento">Movimiento</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="intro" class="section section-deep">
+            <div class="section-card">
+                <h2>Qué encontrarás aquí</h2>
+                <p>Esta página reúne herramientas didácticas para comprender y calcular:</p>
+                <ul>
+                    <li>Conversiones de unidades de velocidad, fuerza, longitud, volumen y área.</li>
+                    <li>Tablas de equivalencias clave para resultados rápidos.</li>
+                    <li>Conversión entre Celsius, Kelvin y Fahrenheit.</li>
+                    <li>Vectores, MRU, MRUV, parábola y tiro vertical con fórmulas y animaciones.</li>
+                </ul>
+                <p>Aprender estos cálculos te ayuda a interpretar resultados en física, resolver problemas de laboratorio, estudiar mecánica y diseñar proyectos que dependen de velocidad, fuerza y volumen.</p>
+            </div>
+        </section>
+
+        <section id="conversiones" class="section section-teal">
+            <div class="section-card">
+                <h2>Conversiones físicas</h2>
+                <p>Convierte valores entre unidades complementarias y realiza conversiones reversibles sin repetir cada par individualmente.</p>
+                <div class="calculator grid-2">
+                    <div>
+                        <label>Categoría:
+                            <select id="categoria-unidad" onchange="actualizarUnidades()">
+                                <option value="velocity">Velocidad</option>
+                                <option value="force">Fuerza</option>
+                                <option value="length">Longitud</option>
+                                <option value="mass">Masa</option>
+                                <option value="volume">Volumen</option>
+                                <option value="area">Área</option>
+                            </select>
+                        </label>
+                        <label>De:
+                            <select id="unidad-de"></select>
+                        </label>
+                        <label>A:
+                            <select id="unidad-a"></select>
+                        </label>
+                        <label>Valor:
+                            <input id="valor-conversion" type="number" step="any" value="1">
+                        </label>
+                        <button type="button" onclick="convertirUnidades()">Convertir</button>
+                    </div>
+                    <div class="result-card">
+                        <h3>Resultado</h3>
+                        <p id="resultado-conversion">Selecciona unidades y convierte valores.</p>
+                        <p class="note">Ejemplos incluidos: mi/h ↔ km/h, km/h ↔ cm/s, kgf ↔ N, N ↔ dina, cm ↔ pulgada, m³ ↔ L y más.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tabla" class="section section-slate">
+            <div class="section-card">
+                <h2>Tabla de equivalencias</h2>
+                <p>Tabla rápida con valores útiles para convertir unidades comunes de longitud, masa, volumen y fuerza.</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr><th>Origen</th><th>Equivale a</th><th>Valor</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 m</td><td>cm</td><td>100</td></tr>
+                            <tr><td>1 cm</td><td>mm</td><td>10</td></tr>
+                            <tr><td>1 km</td><td>m</td><td>1000</td></tr>
+                            <tr><td>1 m</td><td>pies</td><td>3.2808</td></tr>
+                            <tr><td>1 m</td><td>yardas</td><td>1.0936</td></tr>
+                            <tr><td>1 pie</td><td>cm</td><td>30.48</td></tr>
+                            <tr><td>1 pie</td><td>pulgadas</td><td>12</td></tr>
+                            <tr><td>1 pulgada</td><td>cm</td><td>2.54</td></tr>
+                            <tr><td>1 milla</td><td>km</td><td>1.60934</td></tr>
+                            <tr><td>1 libra</td><td>g</td><td>453.592</td></tr>
+                            <tr><td>1 kg</td><td>libras</td><td>2.20462</td></tr>
+                            <tr><td>1 cm³</td><td>L</td><td>0.001</td></tr>
+                            <tr><td>1 L</td><td>cm³</td><td>1000</td></tr>
+                            <tr><td>1 galón</td><td>L</td><td>3.78541</td></tr>
+                            <tr><td>1 N</td><td>dina</td><td>100000</td></tr>
+                            <tr><td>1 kgf</td><td>N</td><td>9.80665</td></tr>
+                            <tr><td>1 tonelada</td><td>kg</td><td>1000</td></tr>
+                            <tr><td>1 milla</td><td>yarda</td><td>1760</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="calculator small-grid">
+                    <div>
+                        <label>Escalar tiempo:
+                            <input id="velocidad-inicial" type="number" step="any" value="0">
+                        </label>
+                        <label>Velocidad final (m/s):
+                            <input id="velocidad-final" type="number" step="any" value="20">
+                        </label>
+                        <label>Aceleración (m/s²):
+                            <input id="aceleracion-tiempo" type="number" step="any" value="2">
+                        </label>
+                        <button type="button" onclick="calcularTiempo()">Calcular tiempo</button>
+                    </div>
+                    <div class="result-card">
+                        <h3>Tiempo para cambiar velocidad</h3>
+                        <p id="resultado-tiempo">Usa velocidad inicial, final y aceleración para ver los segundos necesarios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="temperatura" class="section section-indigo">
+            <div class="section-card">
+                <h2>Conversión de temperaturas</h2>
+                <p>Convierte entre Celsius, Kelvin y Fahrenheit para trabajar con datos de laboratorio, clima y termodinámica.</p>
+                <div class="calculator grid-2">
+                    <div>
+                        <label>Valor:
+                            <input id="valor-temperatura" type="number" step="any" value="25">
+                        </label>
+                        <label>Unidad:
+                            <select id="unidad-temperatura">
+                                <option value="C">Celsius</option>
+                                <option value="K">Kelvin</option>
+                                <option value="F">Fahrenheit</option>
+                            </select>
+                        </label>
+                        <button type="button" onclick="convertirTemperatura()">Convertir</button>
+                    </div>
+                    <div class="result-card">
+                        <h3>Resultados</h3>
+                        <p id="resultado-temperatura">Convierte para ver los tres valores.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="velocidad" class="section section-cyan">
+            <div class="section-card">
+                <h2>Velocidad</h2>
+                <p>Convierte de millas por hora a km/h y de km/h a cm/s. Estas conversiones son útiles para comparar velocidades entre sistemas de medida.</p>
+                <div class="calculator grid-2">
+                    <div>
+                        <label>Millas/h:
+                            <input id="miph" type="number" step="any" value="60">
+                        </label>
+                        <button type="button" onclick="convertirMphAkmh()">Convertir a km/h</button>
+                        <p id="resultado-mph">Resultado en km/h</p>
+                    </div>
+                    <div>
+                        <label>km/h:
+                            <input id="kmph" type="number" step="any" value="100">
+                        </label>
+                        <button type="button" onclick="convertirKmphAcm()">Convertir a cm/s</button>
+                        <p id="resultado-kmph">Resultado en cm/s</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fuerza" class="section section-azure">
+            <div class="section-card">
+                <h2>Fuerza</h2>
+                <p>Convierte entre kgf, newtons y dinas. Estas relaciones son esenciales para calcular cargas, fuerzas de fricción y esfuerzo en estructuras.</p>
+                <div class="calculator grid-2">
+                    <div>
+                        <label>kgf:
+                            <input id="kgf-valor" type="number" step="any" value="1">
+                        </label>
+                        <button type="button" onclick="convertirKgfAN()">A newtons</button>
+                        <p id="resultado-kgf"></p>
+                    </div>
+                    <div>
+                        <label>Newtons:
+                            <input id="newton-valor" type="number" step="any" value="10">
+                        </label>
+                        <button type="button" onclick="convertirNAOtras()">A dina / kgf</button>
+                        <p id="resultado-newton"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="masa-area" class="section section-sapphire">
+            <div class="section-card">
+                <h2>Masa, volumen y área</h2>
+                <p>Convierte entre gramos y libras, cm y pulgadas, m³ y litros, pie² y m². Estos cálculos se usan en peso, construcción, recetas y diseño de espacios.</p>
+                <div class="calculator small-grid">
+                    <div>
+                        <label>Gramos:
+                            <input id="gramos-valor" type="number" step="any" value="1000">
+                        </label>
+                        <button type="button" onclick="convertirGramosALibras()">A libras</button>
+                        <p id="resultado-gramos"></p>
+                    </div>
+                    <div>
+                        <label>Centímetros:
+                            <input id="cm-valor" type="number" step="any" value="30">
+                        </label>
+                        <button type="button" onclick="convertirCmAPulgadas()">A pulgadas</button>
+                        <p id="resultado-cm"></p>
+                    </div>
+                    <div>
+                        <label>Metros cúbicos:
+                            <input id="m3-valor" type="number" step="any" value="2">
+                        </label>
+                        <button type="button" onclick="convertirM3ALitros()">A litros</button>
+                        <p id="resultado-m3"></p>
+                    </div>
+                    <div>
+                        <label>Pies cuadrados:
+                            <input id="pie2-valor" type="number" step="any" value="10">
+                        </label>
+                        <button type="button" onclick="convertirPie2AM2()">A m²</button>
+                        <p id="resultado-pie2"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vectores" class="section section-graph">
+            <div class="section-card">
+                <h2>Vectores</h2>
+                <p>Un vector describe magnitud y dirección. Es útil para representar desplazamientos, fuerzas y velocidad en un plano.</p>
+                <div class="calculator grid-2">
+                    <div>
+                        <p>Componentes vectoriales:</p>
+                        <label>Magnitud:
+                            <input id="vector-magnitud" type="number" step="any" value="10">
+                        </label>
+                        <label>Ángulo (°):
+                            <input id="vector-angulo" type="number" step="any" value="40">
+                        </label>
+                        <button type="button" onclick="calcularVector()">Calcular componentes</button>
+                        <p id="vector-resultado">X e Y en el mismo plano.</p>
+                    </div>
+                    <div class="canvas-card">
+                        <canvas id="canvas-vectores" width="360" height="240"></canvas>
+                        <p>Animación vectorial en plano cartesiano.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="movimiento" class="section section-motion">
+            <div class="section-card">
+                <h2>Movimiento y trayectorias</h2>
+                <p>Modela MRU, MRUV, parábola y tiro vertical. Cada caso incluye fórmulas y una animación sencilla en un plano cartesiano.</p>
+                <div class="motion-grid">
+                    <article class="motion-card">
+                        <h3>MRU</h3>
+                        <p>Movimiento rectilíneo uniforme: posición = x₀ + v·t</p>
+                        <label>Velocidad (m/s):
+                            <input id="mru-velocidad" type="number" step="any" value="2">
+                        </label>
+                        <label>Tiempo (s):
+                            <input id="mru-tiempo" type="number" step="any" value="5">
+                        </label>
+                        <button type="button" onclick="calcularMRU()">Calcular posición</button>
+                        <p id="resultado-mru"></p>
+                        <canvas id="canvas-mru" width="320" height="180"></canvas>
+                    </article>
+                    <article class="motion-card">
+                        <h3>MRUV</h3>
+                        <p>Movimiento con aceleración constante: v = v₀ + a·t y s = s₀ + v₀·t + ½·a·t²</p>
+                        <label>Velocidad inicial (m/s):
+                            <input id="mruv-v0" type="number" step="any" value="0">
+                        </label>
+                        <label>Aceleración (m/s²):
+                            <input id="mruv-a" type="number" step="any" value="1">
+                        </label>
+                        <label>Tiempo (s):
+                            <input id="mruv-t" type="number" step="any" value="6">
+                        </label>
+                        <button type="button" onclick="calcularMRUV()">Calcular</button>
+                        <p id="resultado-mruv"></p>
+                        <canvas id="canvas-mruv" width="320" height="180"></canvas>
+                    </article>
+                    <article class="motion-card">
+                        <h3>Parábola</h3>
+                        <p>Trayectoria cuadrática: y = a·x² + b·x + c</p>
+                        <label>a:
+                            <input id="parabola-a" type="number" step="any" value="0.02">
+                        </label>
+                        <label>b:
+                            <input id="parabola-b" type="number" step="any" value="0.2">
+                        </label>
+                        <label>c:
+                            <input id="parabola-c" type="number" step="any" value="0"></label>
+                        <button type="button" onclick="calcularParabola()">Mostrar</button>
+                        <p id="resultado-parabola"></p>
+                        <canvas id="canvas-parabola" width="320" height="180"></canvas>
+                    </article>
+                    <article class="motion-card">
+                        <h3>Tiro vertical</h3>
+                        <p>Movimiento vertical: y = v₀·t - ½·g·t²</p>
+                        <label>Velocidad inicial (m/s):
+                            <input id="tiro-v0" type="number" step="any" value="15">
+                        </label>
+                        <label>Gravedad (m/s²):
+                            <input id="tiro-g" type="number" step="any" value="9.81">
+                        </label>
+                        <button type="button" onclick="calcularTiro()">Calcular</button>
+                        <p id="resultado-tiro"></p>
+                        <canvas id="canvas-tiro" width="320" height="180"></canvas>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Herramienta educativa de física con cálculos, conversiones y animaciones.</p>
+    </footer>
+
+    <script>
+        const unidades = {
+            velocity: {
+                mph: { name: 'mi/h', factor: 0.44704 },
+                kph: { name: 'km/h', factor: 0.27777778 },
+                cms: { name: 'cm/s', factor: 0.01 }
+            },
+            force: {
+                kgf: { name: 'kgf', factor: 9.80665 },
+                N: { name: 'N', factor: 1 },
+                dina: { name: 'dina', factor: 1e-5 }
+            },
+            length: {
+                m: { name: 'm', factor: 1 },
+                cm: { name: 'cm', factor: 0.01 },
+                mm: { name: 'mm', factor: 0.001 },
+                km: { name: 'km', factor: 1000 },
+                pie: { name: 'pie', factor: 0.3048 },
+                pulgada: { name: 'pulgada', factor: 0.0254 },
+                yarda: { name: 'yarda', factor: 0.9144 },
+                milla: { name: 'milla', factor: 1609.34 }
+            },
+            mass: {
+                g: { name: 'g', factor: 0.001 },
+                kg: { name: 'kg', factor: 1 },
+                libra: { name: 'lb', factor: 0.453592 },
+                tonelada: { name: 't', factor: 1000 }
+            },
+            volume: {
+                m3: { name: 'm³', factor: 1 },
+                L: { name: 'L', factor: 0.001 },
+                cm3: { name: 'cm³', factor: 1e-6 },
+                galon: { name: 'galón', factor: 3.78541 }
+            },
+            area: {
+                pie2: { name: 'pie²', factor: 0.092903 },
+                m2: { name: 'm²', factor: 1 }
+            }
+        };
+
+        function actualizarUnidades() {
+            const categoria = document.getElementById('categoria-unidad').value;
+            const listaDe = document.getElementById('unidad-de');
+            const listaA = document.getElementById('unidad-a');
+            listaDe.innerHTML = '';
+            listaA.innerHTML = '';
+            Object.keys(unidades[categoria]).forEach(key => {
+                const option1 = document.createElement('option');
+                option1.value = key;
+                option1.textContent = unidades[categoria][key].name;
+                listaDe.appendChild(option1);
+                const option2 = document.createElement('option');
+                option2.value = key;
+                option2.textContent = unidades[categoria][key].name;
+                listaA.appendChild(option2);
+            });
+            listaA.selectedIndex = 1;
+        }
+
+        function convertirUnidades() {
+            const categoria = document.getElementById('categoria-unidad').value;
+            const de = document.getElementById('unidad-de').value;
+            const a = document.getElementById('unidad-a').value;
+            const valor = parseFloat(document.getElementById('valor-conversion').value) || 0;
+            if (de === a) {
+                document.getElementById('resultado-conversion').textContent = `La unidad de origen y destino son iguales: ${valor} ${unidades[categoria][de].name}.`;
+                return;
+            }
+            const base = valor * unidades[categoria][de].factor;
+            const resultado = base / unidades[categoria][a].factor;
+            document.getElementById('resultado-conversion').textContent = `${valor} ${unidades[categoria][de].name} = ${resultado.toFixed(6)} ${unidades[categoria][a].name}`;
+        }
+
+        function convertirTemperatura() {
+            const valor = parseFloat(document.getElementById('valor-temperatura').value) || 0;
+            const unidad = document.getElementById('unidad-temperatura').value;
+            let c = 0;
+            if (unidad === 'C') c = valor;
+            if (unidad === 'K') c = valor - 273.15;
+            if (unidad === 'F') c = (valor - 32) * 5 / 9;
+            const k = c + 273.15;
+            const f = c * 9 / 5 + 32;
+            document.getElementById('resultado-temperatura').textContent = `${valor} ${unidad} = ${c.toFixed(2)} °C = ${k.toFixed(2)} K = ${f.toFixed(2)} °F`;
+        }
+
+        function calcularTiempo() {
+            const vi = parseFloat(document.getElementById('velocidad-inicial').value) || 0;
+            const vf = parseFloat(document.getElementById('velocidad-final').value) || 0;
+            const a = parseFloat(document.getElementById('aceleracion-tiempo').value) || 0;
+            if (a === 0) {
+                document.getElementById('resultado-tiempo').textContent = 'La aceleración no puede ser cero.';
+                return;
+            }
+            const t = (vf - vi) / a;
+            document.getElementById('resultado-tiempo').textContent = `Tiempo para cambiar de ${vi} m/s a ${vf} m/s con ${a} m/s²: ${t.toFixed(2)} s.`;
+        }
+
+        function convertirMphAkmh() {
+            const valor = parseFloat(document.getElementById('miph').value) || 0;
+            document.getElementById('resultado-mph').textContent = `${valor} mi/h = ${(valor * 1.60934).toFixed(3)} km/h`;
+        }
+
+        function convertirKmphAcm() {
+            const valor = parseFloat(document.getElementById('kmph').value) || 0;
+            document.getElementById('resultado-kmph').textContent = `${valor} km/h = ${(valor * 100000 / 3600).toFixed(3)} cm/s`;
+        }
+
+        function convertirKgfAN() {
+            const valor = parseFloat(document.getElementById('kgf-valor').value) || 0;
+            document.getElementById('resultado-kgf').textContent = `${valor} kgf = ${(valor * 9.80665).toFixed(3)} N`;
+        }
+
+        function convertirNAOtras() {
+            const valor = parseFloat(document.getElementById('newton-valor').value) || 0;
+            const aDina = valor / 1e-5;
+            const aKgf = valor / 9.80665;
+            document.getElementById('resultado-newton').textContent = `${valor} N = ${aDina.toFixed(0)} dina = ${aKgf.toFixed(3)} kgf`;
+        }
+
+        function convertirGramosALibras() {
+            const valor = parseFloat(document.getElementById('gramos-valor').value) || 0;
+            document.getElementById('resultado-gramos').textContent = `${valor} g = ${(valor * 0.00220462).toFixed(4)} lb`;
+        }
+
+        function convertirCmAPulgadas() {
+            const valor = parseFloat(document.getElementById('cm-valor').value) || 0;
+            document.getElementById('resultado-cm').textContent = `${valor} cm = ${(valor / 2.54).toFixed(4)} pulg`;
+        }
+
+        function convertirM3ALitros() {
+            const valor = parseFloat(document.getElementById('m3-valor').value) || 0;
+            document.getElementById('resultado-m3').textContent = `${valor} m³ = ${(valor * 1000).toFixed(2)} L`;
+        }
+
+        function convertirPie2AM2() {
+            const valor = parseFloat(document.getElementById('pie2-valor').value) || 0;
+            document.getElementById('resultado-pie2').textContent = `${valor} pie² = ${(valor * 0.092903).toFixed(3)} m²`;
+        }
+
+        function calcularVector() {
+            const mag = parseFloat(document.getElementById('vector-magnitud').value) || 0;
+            const ang = parseFloat(document.getElementById('vector-angulo').value) || 0;
+            const rad = ang * Math.PI / 180;
+            const x = mag * Math.cos(rad);
+            const y = mag * Math.sin(rad);
+            document.getElementById('vector-resultado').textContent = `X = ${x.toFixed(2)}, Y = ${y.toFixed(2)}.`;
+        }
+
+        function calcularMRU() {
+            const v = parseFloat(document.getElementById('mru-velocidad').value) || 0;
+            const t = parseFloat(document.getElementById('mru-tiempo').value) || 0;
+            const s = v * t;
+            document.getElementById('resultado-mru').textContent = `Posición = ${s.toFixed(2)} m con v=${v} m/s y t=${t} s.`;
+        }
+
+        function calcularMRUV() {
+            const v0 = parseFloat(document.getElementById('mruv-v0').value) || 0;
+            const a = parseFloat(document.getElementById('mruv-a').value) || 0;
+            const t = parseFloat(document.getElementById('mruv-t').value) || 0;
+            const v = v0 + a * t;
+            const s = v0 * t + 0.5 * a * t * t;
+            document.getElementById('resultado-mruv').textContent = `v = ${v.toFixed(2)} m/s, s = ${s.toFixed(2)} m.`;
+        }
+
+        function calcularParabola() {
+            const a = parseFloat(document.getElementById('parabola-a').value) || 0;
+            const b = parseFloat(document.getElementById('parabola-b').value) || 0;
+            const c = parseFloat(document.getElementById('parabola-c').value) || 0;
+            document.getElementById('resultado-parabola').textContent = `y = ${a}x² + ${b}x + ${c}`;
+        }
+
+        function calcularTiro() {
+            const v0 = parseFloat(document.getElementById('tiro-v0').value) || 0;
+            const g = parseFloat(document.getElementById('tiro-g').value) || 9.81;
+            const tCima = v0 / g;
+            const altura = v0 * tCima - 0.5 * g * tCima * tCima;
+            document.getElementById('resultado-tiro').textContent = `Tiempo al punto máximo: ${tCima.toFixed(2)} s, altura máxima: ${altura.toFixed(2)} m.`;
+        }
+
+        function dibujarBase(canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvas.width; x += 20) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= canvas.height; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+
+        function animarVectores() {
+            const canvas = document.getElementById('canvas-vectores');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            function loop() {
+                dibujarBase(canvas);
+                const mag = parseFloat(document.getElementById('vector-magnitud').value) || 10;
+                const ang = parseFloat(document.getElementById('vector-angulo').value) || 45;
+                const rad = ang * Math.PI / 180;
+                const x = Math.cos(rad) * Math.min(110, mag * 5);
+                const y = Math.sin(rad) * Math.min(110, mag * 5);
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.strokeStyle = '#88d1ff';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.fillStyle = '#a7f0ff';
+                ctx.beginPath();
+                ctx.arc(x, y, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function animarMRU() {
+            const canvas = document.getElementById('canvas-mru');
+            const ctx = canvas.getContext('2d');
+            let t = 0;
+            function loop() {
+                dibujarBase(canvas);
+                const v = parseFloat(document.getElementById('mru-velocidad').value) || 0;
+                const x = Math.min(canvas.width - 30, (v * t) * 10 % (canvas.width - 40));
+                ctx.fillStyle = '#f1f0a8';
+                ctx.beginPath();
+                ctx.arc(20 + x, canvas.height - 30, 10, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#f1f0a8';
+                ctx.beginPath();
+                ctx.moveTo(10, canvas.height - 30);
+                ctx.lineTo(canvas.width - 10, canvas.height - 30);
+                ctx.stroke();
+                t += 0.03;
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function animarMRUV() {
+            const canvas = document.getElementById('canvas-mruv');
+            const ctx = canvas.getContext('2d');
+            let t = 0;
+            function loop() {
+                dibujarBase(canvas);
+                const v0 = parseFloat(document.getElementById('mruv-v0').value) || 0;
+                const a = parseFloat(document.getElementById('mruv-a').value) || 0;
+                const x = Math.min(canvas.width - 30, (v0 * t + 0.5 * a * t * t) * 3);
+                ctx.fillStyle = '#c5ffb2';
+                ctx.beginPath();
+                ctx.arc(20 + x, canvas.height - 30, 10, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#c5ffb2';
+                ctx.beginPath();
+                ctx.moveTo(10, canvas.height - 30);
+                ctx.lineTo(canvas.width - 10, canvas.height - 30);
+                ctx.stroke();
+                t += 0.04;
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function animarParabola() {
+            const canvas = document.getElementById('canvas-parabola');
+            const ctx = canvas.getContext('2d');
+            let t = 0;
+            function loop() {
+                dibujarBase(canvas);
+                const a = parseFloat(document.getElementById('parabola-a').value) || 0.02;
+                const b = parseFloat(document.getElementById('parabola-b').value) || 0.2;
+                const c = parseFloat(document.getElementById('parabola-c').value) || 0;
+                const x = (t % (canvas.width - 40)) + 10;
+                const y = a * Math.pow((x - 10), 2) + b * (x - 10) + c;
+                const drawY = Math.min(canvas.height - 20, canvas.height - 30 - y * 0.8);
+                ctx.fillStyle = '#ffb27b';
+                ctx.beginPath();
+                ctx.arc(x, drawY, 8, 0, Math.PI * 2);
+                ctx.fill();
+                t += 1.2;
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function animarTiro() {
+            const canvas = document.getElementById('canvas-tiro');
+            const ctx = canvas.getContext('2d');
+            let t = 0;
+            function loop() {
+                dibujarBase(canvas);
+                const v0 = parseFloat(document.getElementById('tiro-v0').value) || 0;
+                const g = parseFloat(document.getElementById('tiro-g').value) || 9.81;
+                const y = v0 * t - 0.5 * g * t * t;
+                const drawY = Math.min(canvas.height - 20, Math.max(20, canvas.height - 30 - y * 10));
+                ctx.fillStyle = '#ffa3d0';
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, drawY, 8, 0, Math.PI * 2);
+                ctx.fill();
+                t += 0.05;
+                if (y < 0 && t > 0.1) t = 0;
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        window.addEventListener('load', () => {
+            actualizarUnidades();
+            animarVectores();
+            animarMRU();
+            animarMRUV();
+            animarParabola();
+            animarTiro();
+        });
+    </script>
+</body>
+</html>
